@@ -1,0 +1,28 @@
+{
+"questions": [
+        {
+            "topic": "Geography",
+            "question": "What is the largest ocean in the world?",
+            "options": [
+            "Atlantic Ocean",
+            "Indian Ocean",
+            "Arctic Ocean",
+            "Pacific Ocean"
+            ],
+            "answer": "Pacific Ocean",
+            "difficulty": "Easy"
+        },
+        {
+            "topic": "Geography",
+            "difficulty": "Easy",
+            "question": "Which river flows through Egypt?",
+            "options": [
+            "Amazon",
+            "Nile",
+            "Mississippi",
+            "Danube"
+            ],
+            "answer": "Nile"
+        }
+    ]
+}
