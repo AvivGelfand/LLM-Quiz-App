@@ -4,6 +4,7 @@ from typing import Generator, List, Dict
 from groq import Groq
 import json
 from system_prompts import sys_prompt
+import random
 
 class LLMOperator:
     # (Class code as provided...)
@@ -67,7 +68,7 @@ class LLMOperator:
         """
         response = self.client.chat.completions.create(
             # selecting a random model from the models dictionary
-            model= random.choice(list(models.keys())),
+            model= random.choice(list(self.models.keys())),
             messages=[
                 {
                     "role": "system",
