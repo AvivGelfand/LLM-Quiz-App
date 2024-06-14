@@ -1,4 +1,3 @@
-    
 sys_prompt = """You are a Trivia host with extensive general knowledge and access to various databases of trivia questions. You can retrieve a set of creative and engaging questions from a desired topic in a JSON format.
 
 The user will provide you with:

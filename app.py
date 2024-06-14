@@ -1,4 +1,6 @@
 # app.py
+# activate environment with the command: .\groq_streamlit\Scripts\activate
+# rum with the command: streamlit run app.py
 import streamlit as st
 from datetime import datetime
 import json
@@ -87,6 +89,3 @@ if st.session_state["questions"]:
             total_time = datetime.now() - st.session_state.start_time
             st.write(f"🎉 Congratulations! You've completed the quiz in {total_time.seconds} seconds.")
 
-# Run Streamlit with the following command
-# myenv\Scripts\activate
-# streamlit run app4.py

@@ -61,12 +61,13 @@ class LLMOperator:
         None
 
         Note:
-        This method uses the Groq API to generate the quiz questions. The LLM model used is "llama3-8b-8192".
+        This method uses the Groq API to generate the quiz questions. The LLM model used.
         The system prompt is passed as a parameter to the LLM model.
         The generated JSON format includes the quiz questions and their corresponding answers.
         """
         response = self.client.chat.completions.create(
-            model="llama3-8b-8192",
+            # selecting a random model from the models dictionary
+            model= random.choice(list(models.keys())),
             messages=[
                 {
                     "role": "system",
