@@ -18,6 +18,7 @@ models = {
     "llama3-8b-8192": {"name": "LLaMA3-8b-8192", "tokens": 8192, "developer": "Meta"},
     "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
 }
+
 llm_operator = LLMOperator(api_key=st.secrets["GROQ_API_KEY"], models=models, sys_prompt=sys_prompt)
 
 # Streamlit app configuration
@@ -90,15 +91,24 @@ if st.session_state["questions"]:
             st.warning(f"⚠️ Question {i + 1}: More than one option selected. Only one answer is allowed.")
 
     if st.button("✔️ Check All Answers"):
+        """
+        The following part checks the answers selected by the user and provides feedback.
+        It also calculates the total score and the time taken to complete the quiz.
+        """
         correct_answers = 0
         user_answers = []
-        for i, question in enumerate(questions):
+        
+        for i, question in enumerate(questions): # Iterate over each question
+            
+            # Check if more than one option is selected
             if sum(selected_answers[i]) > 1:
                 st.error(f"❌ Question {i + 1}: Incorrect! More than one option was selected.")
                 user_answers.append([opt for opt, sel in zip(question["options"], selected_answers[i]) if sel])
+            # Check if any option is selected
             elif any(selected_answers[i]):
                 user_selected = [option for option, selected in zip(question["options"], selected_answers[i]) if selected]
                 user_answers.append(user_selected)
+                # Check if the selected option is correct
                 if question["answer"] in user_selected:
                     st.success(f"✅ Question {i + 1}: Correct! {question['answer_explanation']}")
                     correct_answers += 1
@@ -108,12 +118,14 @@ if st.session_state["questions"]:
                 st.warning(f"⚠️ Question {i + 1}: No options selected.")
                 user_answers.append([])
 
+        # Calculate the total time taken to complete the quiz
         total_time = datetime.now() - st.session_state.start_time
         st.write(f"🎉 You got {correct_answers} out of {num_questions} correct in {total_time.seconds} seconds. The result will be saved in the sidebar.")
+        # Show a balloon if all answers are correct
         if correct_answers == num_questions:
             st.balloons()
         
-        # Save the attempt
+        # Save the attempt details in the session state
         attempt = {
             "questions": questions,
             "answers": user_answers,
