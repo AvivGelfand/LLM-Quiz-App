@@ -6,8 +6,9 @@ import json
 from system_prompts import sys_prompt
 import random
 
+# TODO: write a n llm executor class
+
 class LLMOperator:
-    # (Class code as provided...)
     def __init__(self, api_key: str, models: Dict[str, Dict[str, any]], sys_prompt: str):
         """
         Initializes the LLMOperator with the API key and model details.
@@ -47,6 +48,7 @@ class LLMOperator:
         
 
     def generate_questions_JSON(self, topic, difficulty, num_questions):
+        # TODO: make sure all models support JSON mode
         """
         Generates quiz questions in JSON format based on the provided topic, difficulty, and number of questions.
 
@@ -83,13 +85,12 @@ class LLMOperator:
                                 Generate {num_questions} quiz questions from the topic "{topic}" at a {difficulty} difficulty level. Answer with a valid JSON format."""
                 }
             ],
-            temperature=1,
-            max_tokens=1024,
-            top_p=1,
+            temperature=1, # TODO: find an optimal value for temperature
+            max_tokens=2048,
+            top_p=1, # TODO: find an optimal value for temperature
             stream=False,
             response_format={"type": "json_object"},
             stop=None,
         )
         # print(response.choices[0].message)
         return json.loads(response.choices[0].message.content)
-        

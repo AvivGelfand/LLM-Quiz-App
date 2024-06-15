@@ -3,7 +3,6 @@
 # run with the command: streamlit run app.py
 import streamlit as st
 from datetime import datetime
-import json
 from random import shuffle
 from system_prompts import sys_prompt
 from llm_operator import LLMOperator
@@ -12,6 +11,8 @@ from llm_operator import LLMOperator
 if "GROQ_API_KEY" not in st.secrets:
     st.error("API key not found. Please add your API key to the Streamlit secrets.")
     st.stop()
+
+
 
 # Initialize the LLMOperator
 models = {
@@ -25,7 +26,7 @@ llm_operator = LLMOperator(api_key=st.secrets["GROQ_API_KEY"], models=models, sy
 st.set_page_config(page_icon="💬", layout="wide", page_title="LLM Quiz Chat")
 
 # Sidebar for conversation history
-st.sidebar.title("Previous Conversations")
+st.sidebar.title("Previous Quiz Attempts")
 if "attempts" not in st.session_state:
     st.session_state["attempts"] = []
 
@@ -47,7 +48,7 @@ st.title("LLM-Powered Quiz Generator")
 num_questions = st.selectbox("Number of quiz questions", options=range(1, 6), index=4)
 
 # Select quiz topic
-topic = st.selectbox("Select quiz topic", ["History", "Computer Science", "Business and Marketing Strategy"])
+topic = st.selectbox("Select quiz topic", ["History", "Computer Science", "Marketing / Business Strategy"])
 
 # Select difficulty level
 difficulty = st.selectbox("Select difficulty level", ["Easy", "Medium", "Hard"])
@@ -99,7 +100,7 @@ if st.session_state["questions"]:
         user_answers = []
         
         for i, question in enumerate(questions): # Iterate over each question
-            
+
             # Check if more than one option is selected
             if sum(selected_answers[i]) > 1:
                 st.error(f"❌ Question {i + 1}: Incorrect! More than one option was selected.")
