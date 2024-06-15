@@ -48,7 +48,7 @@ st.title("LLM-Powered Quiz Generator")
 num_questions = st.selectbox("Number of quiz questions", options=range(1, 6), index=4)
 
 # Select quiz topic
-topic = st.selectbox("Select quiz topic", ["History", "Computer Science", "Marketing / Business Strategy"])
+topic = st.selectbox("Select quiz topic", ["History", "Marketing / Business Strategy", "Computer Science"])
 
 # Select difficulty level
 difficulty = st.selectbox("Select difficulty level", ["Easy", "Medium", "Hard"])
@@ -121,7 +121,9 @@ if st.session_state["questions"]:
 
         # Calculate the total time taken to complete the quiz
         total_time = datetime.now() - st.session_state.start_time
-        st.write(f"🎉 You got {correct_answers} out of {num_questions} correct in {total_time.seconds} seconds. The result will be saved in the sidebar.")
+        st.write(f"🎉 You got {correct_answers} out of {num_questions} correct in {total_time.seconds} seconds. The result will be saved in the sidebar.\n")
+        st.markdown("[Start another quiz](https://llm-quiz-wizard.streamlit.app/#llm-powered-quiz-generator)")
+
         # Show a balloon if all answers are correct
         if correct_answers == num_questions:
             st.balloons()
