@@ -4,8 +4,8 @@
 import streamlit as st
 from datetime import datetime
 from random import shuffle
-from system_prompts import sys_prompt
-from groq_llm_operator import GroqOperator
+from prompts import sys_prompt
+from llm_operator import GroqOperator
 
 # Check for API Key
 if "GROQ_API_KEY" not in st.secrets:

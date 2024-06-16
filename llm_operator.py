@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from groq import Groq
 import json
-from system_prompts import sys_prompt, make_quiz_prompt
+from prompts import sys_prompt, make_quiz_prompt
 import random
 import logging
 
@@ -48,8 +48,8 @@ class GroqOperator(LLMOperator):
         self.client = Groq(api_key=api_key)
         self.system_prompt = sys_prompt
         self.models = {
-            # "llama3-70b-8192": {"name": "LLaMA3-70b-8192", "tokens": 8192, "developer": "Meta"},
-            "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
+            "llama3-70b-8192": {"name": "LLaMA3-70b-8192", "tokens": 8192, "developer": "Meta"},
+            # "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
         }
 
     def generate_questions_JSON(self, topic: str, difficulty: str, num_questions: int) -> Dict[str, Any]:
