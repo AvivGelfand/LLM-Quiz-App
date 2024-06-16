@@ -6,7 +6,7 @@ myenv/
 groq_streamlit/
 # C extensions
 *.so
-LLM_Expert_excercise.pdf
+/LLM_Expert_excercise.pdf
 # Distribution / packaging
 .Python
 build/

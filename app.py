@@ -93,7 +93,8 @@ def check_answers(questions, selected_answers):
             user_answers.append([])
     
     total_time = datetime.now() - st.session_state["start_time"]
-    st.write(f"🎉 You got {correct_answers} out of {num_questions} correct in {total_time.seconds} seconds. The result will be saved in the sidebar.\n You can now generate a new quiz and challenge yourself again!")
+    st.write(f"🎉 You got {correct_answers} out of {num_questions} correct in {total_time.seconds} seconds. The result will be saved in the sidebar.\n")
+    st.write(f"You can now generate a new quiz and challenge yourself again!")
 
     if correct_answers == num_questions:
         st.balloons()
