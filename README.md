@@ -44,6 +44,3 @@ streamlit run app.py
 
 Special thanks to the developers of the language models and the open-source community for their continuous support and contributions.
 
----
-
-Feel free to adjust the sections to better match your project's specifics and add any additional details you find necessary.
