@@ -5,7 +5,7 @@ import streamlit as st
 from datetime import datetime
 from random import shuffle
 from system_prompts import sys_prompt
-from llm_operator import LLMOperator
+from groq_llm_operator import GroqLLMOperator
 
 # Check for API Key
 if "GROQ_API_KEY" not in st.secrets:
@@ -16,36 +16,29 @@ if "GROQ_API_KEY" not in st.secrets:
 
 # Initialize the LLMOperator
 models = {
+    "llama2-70b-4096": {"name": "LLaMA2-70b-chat", "tokens": 4096, "developer": "Meta"},
+    "llama3-70b-8192": {"name": "LLaMA3-70b-8192", "tokens": 8192, "developer": "Meta"},
     "llama3-8b-8192": {"name": "LLaMA3-8b-8192", "tokens": 8192, "developer": "Meta"},
     "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
 }
 
-llm_operator = LLMOperator(api_key=st.secrets["GROQ_API_KEY"], models=models, sys_prompt=sys_prompt)
+llm_operator = GroqLLMOperator(api_key=st.secrets["GROQ_API_KEY"], models=models, sys_prompt=sys_prompt)
 
 # Streamlit app configuration
-st.set_page_config(page_icon="💬", layout="wide", page_title="LLM Quiz Chat")
+st.set_page_config(page_icon="🧙‍♂️", layout="wide", page_title="LLM Quiz Wizard🪄")
 
 # Sidebar for conversation history
 st.sidebar.title("Previous Quiz Attempts")
 if "attempts" not in st.session_state:
     st.session_state["attempts"] = []
 
-# Display previous attempts in the sidebar
-for idx, attempt in enumerate(st.session_state["attempts"]):
-    if st.sidebar.button(f"Attempt {idx + 1} - {attempt['score']} Correct"):
-        st.write(f"### Attempt {idx + 1} - {attempt['score']} Correct")
-        st.write(f"Time: {attempt['timestamp']}")
-        for i, question in enumerate(attempt['questions']):
-            st.write(f"#### Question {i + 1}: {question['question']}")
-            st.write(f"Your answer: {', '.join(attempt['answers'][i])}")
-            st.write(f"Correct answer: {question['answer']}")
-            st.write(f"Explanation: {question['answer_explanation']}")
+
 
 # Main UI
 st.title("LLM-Powered Quiz Generator")
 
 # Number of questions input
-num_questions = st.selectbox("Number of quiz questions", options=range(1, 10), index=4)
+num_questions = st.selectbox("Number of quiz questions", options=range(1, 11), index=4)
 
 # Select quiz topic
 topic = st.selectbox("Select quiz topic", ["Marketing / Business Strategy", "History", "Computer Science"])
@@ -53,8 +46,8 @@ topic = st.selectbox("Select quiz topic", ["Marketing / Business Strategy", "His
 # Select difficulty level
 difficulty = st.selectbox("Select difficulty level", ["Easy", "Medium", "Hard"])
 
-# Add a progress bar
-progress = st.progress(0)
+# # optional bonus feature: adding a progress bar
+# progress = st.progress(1)
 
 # Initialize session state
 if "questions" not in st.session_state:
@@ -122,7 +115,6 @@ if st.session_state["questions"]:
         # Calculate the total time taken to complete the quiz
         total_time = datetime.now() - st.session_state.start_time
         st.write(f"🎉 You got {correct_answers} out of {num_questions} correct in {total_time.seconds} seconds. The result will be saved in the sidebar.\n")
-        st.markdown("[Start another quiz](#llm-powered-quiz-generator)")
 
         # Show a balloon if all answers are correct
         if correct_answers == num_questions:
@@ -131,8 +123,20 @@ if st.session_state["questions"]:
         # Save the attempt details in the session state
         attempt = {
             "questions": questions,
+            "num_questions": num_questions,
             "answers": user_answers,
             "score": correct_answers,
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
         st.session_state["attempts"].append(attempt)
+
+# Display previous attempts in the sidebar
+for idx, attempt in enumerate(st.session_state["attempts"]):
+    if st.sidebar.button(f"Attempt {idx + 1} : {attempt['score']}/{attempt['num_questions']} Correct"):
+        st.write(f"### Attempt {idx + 1} - {attempt['score']}/{attempt['num_questions']} Correct")
+        st.write(f"Time: {attempt['timestamp']}")
+        for i, question in enumerate(attempt['questions']):
+            st.write(f"### Question {i + 1}: {question['question']}")
+            st.write(f"**Your answer**: {', '.join(attempt['answers'][i])}")
+            st.write(f"**Correct answer**: {question['answer']}")
+            st.write(f"**Explanation**: {question['answer_explanation']}")
