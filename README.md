@@ -37,10 +37,6 @@ streamlit run app.py
 - `.gitignore`: Specifies files that are to be ignored in version control.
 - `LICENSE`: Project license.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 Special thanks to the developers of the language models and the open-source community for their continuous support and contributions.
