@@ -1,5 +1,5 @@
 # LLM Quiz Wizard - LLM-Powered Quiz Generator
-[CLICK HERE TO TRY IT ONLINE](https://llm-quiz-wizard.streamlit.app/) <br>
+[CLICK HERE TO TRY IT ONLINE](https://llm-quiz-wizard.streamlit.app/) <br> <br>
 ![ezgif-2-9b593fe36d](https://github.com/AvivGelfand/LLM-Quiz-App/assets/63909805/c12508a5-a7c1-4f99-a384-a03aa44e1cc3)
 
 
