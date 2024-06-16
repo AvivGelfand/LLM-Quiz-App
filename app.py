@@ -5,7 +5,7 @@ import streamlit as st
 from datetime import datetime
 from random import shuffle
 from system_prompts import sys_prompt
-from groq_llm_operator import GroqLLMOperator
+from groq_llm_operator import GroqOperator
 
 # Check for API Key
 if "GROQ_API_KEY" not in st.secrets:
@@ -15,15 +15,10 @@ if "GROQ_API_KEY" not in st.secrets:
 
 
 # Initialize the LLMOperator
-models = {
-    "llama3-70b-8192": {"name": "LLaMA3-70b-8192", "tokens": 8192, "developer": "Meta"},
-    "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
-}
-
-llm_operator = GroqLLMOperator(api_key=st.secrets["GROQ_API_KEY"], models=models, sys_prompt=sys_prompt)
+llm_operator = GroqOperator(api_key=st.secrets["GROQ_API_KEY"], sys_prompt=sys_prompt)
 
 # Streamlit app configuration
-st.set_page_config(page_icon="🧙‍♂️", layout="wide", page_title="LLM Quiz Wizard🪄")
+st.set_page_config(page_icon="🧙‍♂️", layout="wide", page_title="LLM Quiz Wizard")
 
 # Sidebar for conversation history
 st.sidebar.title("Previous Quiz Attempts")
@@ -35,14 +30,16 @@ if "attempts" not in st.session_state:
 # Main UI
 st.title("LLM-Powered Quiz Generator")
 
-# Number of questions input
-num_questions = st.selectbox("Number of quiz questions", options=range(1, 11), index=4)
-
 # Select quiz topic
-topic = st.selectbox("Select quiz topic", ["Marketing / Business Strategy", "History", "Computer Science"])
+topic = st.text_input("Change to your preferred quiz topic", placeholder="General Knowledge")
 
 # Select difficulty level
 difficulty = st.selectbox("Select difficulty level", ["Easy", "Medium", "Hard"])
+
+# Number of questions input
+num_questions = st.selectbox("Number of quiz questions", options=range(1, 11), index=4)
+
+
 
 # # optional bonus feature: adding a progress bar
 # progress = st.progress(1)
@@ -115,7 +112,7 @@ if st.session_state["questions"]:
 
         # Calculate the total time taken to complete the quiz
         total_time = datetime.now() - st.session_state.start_time
-        st.write(f"🎉 You got {correct_answers} out of {num_questions} correct in {total_time.seconds} seconds. The result will be saved in the sidebar.\n")
+        st.write(f"🎉 You got {correct_answers} out of {num_questions} correct in {total_time.seconds} seconds. The result will be saved in the sidebar.\n You can now generate a new quiz and challenge yourself again!")
 
         # Show a balloon if all answers are correct
         if correct_answers == num_questions:

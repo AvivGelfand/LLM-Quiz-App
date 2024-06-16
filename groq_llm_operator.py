@@ -1,52 +1,58 @@
-from typing import Generator, List, Dict
+from typing import Any, Dict
 from groq import Groq
 import json
-from system_prompts import sys_prompt
+from system_prompts import sys_prompt, make_quiz_prompt
 import random
+import logging
 
-# TODO: write a n llm executor class
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-class GroqLLMOperator:
-    def __init__(self, api_key: str, models: Dict[str, Dict[str, any]], sys_prompt: str):
+
+
+# Define the LLMOperator class
+class LLMOperator:
+    def __init__(self, api_key: str,  sys_prompt: str):
         """
         Initializes the LLMOperator with the API key and model details.
 
         Args:
-            api_key (str): The API key for authenticating with the Groq API.
-            models (Dict[str, Dict[str, any]]): A dictionary containing details about various models.
+            api_key (str): The API key for authenticating with the LLM API.
+            models (Dict[str, Dict[str, Any]]): A dictionary containing details about various models.
             sys_prompt (str): The system prompt to be used for LLM model.
 
         Returns:
             None
         """
-        # Initializing the Groq client with the provided API key
-        self.client = Groq(api_key=api_key)
+        self.api_key = api_key
+        self.sys_prompt = sys_prompt
 
-        # Storing the system prompt
-        self.system_prompt = sys_prompt
 
-        # Storing the model details
-        self.models = models
 
-    def get_model_details(self, model_key: str) -> Dict[str, any]:
+# Modify the GroqOperator class to inherit from LLMOperator
+class GroqOperator(LLMOperator):
+    def __init__(self, api_key: str,  sys_prompt: str):
         """
-        Retrieves the details of a specific model by name.
+        Initializes the GroqOperator with the API key and model details.
 
-        Parameters:
-        model_key (str): The key representing the model in the models dictionary.
+        Args:
+            api_key (str): The API key for authenticating with the Groq API.
+            models (Dict[str, Dict[str, Any]]): A dictionary containing details about various models.
+            sys_prompt (str): The system prompt to be used for LLM model.
 
         Returns:
-        Dict[str, any]: The details of the specified model. If the model_key is not found in the models dictionary, an empty dictionary is returned.
-
-        Raises:
-        None
-
+            None
         """
-        return self.models.get(model_key, {})
-        
+        super().__init__(api_key, sys_prompt)
+        self.client = Groq(api_key=api_key)
+        self.system_prompt = sys_prompt
+        self.models = {
+            # "llama3-70b-8192": {"name": "LLaMA3-70b-8192", "tokens": 8192, "developer": "Meta"},
+            "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
+        }
 
-    def generate_questions_JSON(self, topic, difficulty, num_questions):
-        # TODO: make sure all models support JSON mode
+    def generate_questions_JSON(self, topic: str, difficulty: str, num_questions: int) -> Dict[str, Any]:
         """
         Generates quiz questions in JSON format based on the provided topic, difficulty, and number of questions.
 
@@ -58,33 +64,41 @@ class GroqLLMOperator:
         Returns:
         dict: A dictionary containing the generated quiz questions in JSON format.
 
-        Raises:
-        None
-
         Note:
         This method uses the Groq API to generate the quiz questions. The LLM model used.
         The system prompt is passed as a parameter to the LLM model.
         The generated JSON format includes the quiz questions and their corresponding answers.
         """
-        model= random.choice(list(self.models.keys())) # selecting a random model
-        print(model)
+        model = random.choice(list(self.models.keys()))  # selecting a random model
+        logger.info(f"Selected model: {model}")
 
         response = self.client.chat.completions.create(
-            model= model,
+            model=model,
             messages=[
                 {
                     "role": "system",
-                    "content": self.system_prompt
+                    "content": self.sys_prompt
                 },
                 {
                     "role": "user",
-                    "content": f"Topic: {topic},\nNumber of questions: {num_questions},\nDifficulty: {difficulty}.\n\nGenerate {num_questions} random quiz questions from the topic \"{topic}\" at a {difficulty} difficulty level. Answer with a valid JSON format."
+                    "content": make_quiz_prompt(topic=topic, difficulty=difficulty, num_questions=num_questions)
                 }
             ],
-            temperature=1, 
-            # max_tokens=2048, # uncomment to limit the number of tokens generated for saving costs
+            temperature=1,
+            # max_tokens=2048,  # uncomment to limit the number of tokens generated for saving costs
             response_format={"type": "json_object"},
         )
         return json.loads(response.choices[0].message.content)
     
 
+    def get_model_details(self, model_key: str) -> Dict[str, Any]:
+        """
+        Retrieves the details of a specific model by name.
+
+        Parameters:
+        model_key (str): The key representing the model in the models dictionary.
+
+        Returns:
+        Dict[str, Any]: The details of the specified model. If the model_key is not found in the models dictionary, an empty dictionary is returned.
+        """
+        return self.models.get(model_key, {})

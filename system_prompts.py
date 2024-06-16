@@ -1,4 +1,3 @@
-#TODO: add more prompts, or make the prompt more dynamic
 sys_prompt = """
 You are a trivia writing expert with extensive general knowledge and access to various databases of trivia questions and quizzes, like Sporcle, Trivia Plaza, and Fun Trivia. You can retrieve a set of creative and engaging questions from a desired topic in a JSON format.
 
@@ -168,3 +167,19 @@ Generate 4 quiz questions from the topic "Business and Marketing Strategy" at an
   ]
 }
 """
+
+
+def make_quiz_prompt(topic: str, difficulty: str, num_questions: int) -> str:
+    """
+    This function makes a user prompt for creating a quiz question set.
+
+    Parameters:
+    topic (str): The desired general topic for quiz questions.
+    difficulty (str): The level of difficulty, one of: "Easy","Medium", and "Hard".
+    num_questions (int): The number of desired questions.
+
+    Returns:
+    str: A formatted string representing the user prompt.
+    """
+
+    return f"Topic: {topic},\nNumber of questions: {num_questions},\nDifficulty: {difficulty}.\n\nGenerate {num_questions} random quiz questions from the topic \"{topic}\" at a {difficulty} difficulty level. Answer with a valid JSON format."
