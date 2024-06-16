@@ -169,7 +169,7 @@ Generate 4 quiz questions from the topic "Business and Marketing Strategy" at an
 """
 
 
-def make_quiz_prompt(topic: str, difficulty: str, num_questions: int) -> str:
+def make_user_prompt(topic: str, difficulty: str, num_questions: int) -> str:
     """
     This function makes a user prompt for creating a quiz question set, tailored to the difficulty level.
 
@@ -182,14 +182,11 @@ def make_quiz_prompt(topic: str, difficulty: str, num_questions: int) -> str:
     str: A formatted string representing the user prompt with specific guidelines based on difficulty.
     """
     if difficulty == "Easy":
-        instructions = ("Ask straightforward questions requiring common knowledge or basic facts. "
-                        "Focus on general familiarity without the need for specific expertise.")
+        instructions = "Ask straightforward questions requiring common knowledge or basic facts. "
     elif difficulty == "Medium":
-        instructions = ("Include questions that require a good general knowledge or interest in the topic. "
-                        "Questions should be more specific and may require connecting multiple simple ideas.")
+        instructions = "Include questions that require a good general knowledge or interest in the topic. "
     elif difficulty == "Hard":
-        instructions = ("Focus on niche, detailed information that typically only experts or enthusiasts would know. "
-                        "Questions may involve complex problem-solving or obscure facts.")
+        instructions = "Focus on niche, detailed information that typically only experts or enthusiasts would know. "
 
     return (f"Topic: {topic},\nNumber of questions: {num_questions},\nDifficulty: {difficulty}.\n\n"
             f"Generate {num_questions} {difficulty.lower()} difficulty quiz questions on the topic \"{topic}\". "

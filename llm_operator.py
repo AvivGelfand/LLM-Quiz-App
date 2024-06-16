@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from groq import Groq
 import json
-from prompts import sys_prompt, make_quiz_prompt
+from prompts import sys_prompt, make_user_prompt
 import random
 import logging
 
@@ -49,7 +49,7 @@ class GroqOperator(LLMOperator):
         self.system_prompt = sys_prompt
         self.models = {
             "llama3-70b-8192": {"name": "LLaMA3-70b-8192", "tokens": 8192, "developer": "Meta"},
-            # "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
+            # "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"}, # uncomment to use another model by groq
         }
 
     def generate_questions_JSON(self, topic: str, difficulty: str, num_questions: int) -> Dict[str, Any]:
@@ -81,7 +81,7 @@ class GroqOperator(LLMOperator):
                 },
                 {
                     "role": "user",
-                    "content": make_quiz_prompt(topic=topic, difficulty=difficulty, num_questions=num_questions)
+                    "content": make_user_prompt(topic=topic, difficulty=difficulty, num_questions=num_questions)
                 }
             ],
             temperature=1,
