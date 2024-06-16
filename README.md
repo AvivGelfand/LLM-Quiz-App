@@ -25,6 +25,15 @@ pip install -r requirements.txt
 
 ## Usage
 
+To use Groq's API in your Streamlit application, you need to obtain an API key from Groq and configure your Streamlit app to use it. First, sign up for an account at [Groq's website](https://groq.com) and navigate to the API section in your account settings to generate a new API key. Copy the generated key. Next, locate the `streamlit.toml` file in your Streamlit app's root directory. If it doesn't exist, create a new file named `streamlit.toml`. Add the following lines to the file:
+
+```toml
+[general]
+GROQ_API_KEY = "your_api_key_here"
+```
+
+Replace `"your_api_key_here"` with the key you copied earlier. Save the `streamlit.toml` file. Your Streamlit application is now configured to use the Groq API key for authentication, allowing seamless integration with Groq's services.
+
 Run the application with Streamlit:
 
 ```bash
