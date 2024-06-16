@@ -39,7 +39,6 @@ streamlit run app.py
 - `requirements.txt`: Lists the required Python packages.
 - `README.md`: Project documentation.
 - `.gitignore`: Specifies files that are to be ignored in version control.
-- `LICENSE`: Project license.
 
 ## Acknowledgments
 
