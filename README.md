@@ -31,10 +31,10 @@ streamlit run app.py
 
 - `app.py`: Main application file for Streamlit.
 - `llm_operator.py`: Handles interactions with the language model.
-- `prompts.py`: Contains the prompts used to generate quiz questions.
+- `prompts.py`: Contains the prompts and prompt customizing functions used to generate quiz questions.
 - `requirements.txt`: Lists the required Python packages.
 - `README.md`: Project documentation.
-- `.gitignore`: Specifies files to ignore in version control.
+- `.gitignore`: Specifies files that are to be ignored in version control.
 - `LICENSE`: Project license.
 
 ## License
