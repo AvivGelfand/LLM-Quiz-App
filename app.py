@@ -114,7 +114,7 @@ st.title("LLM-Powered Quiz Generator")
 topics = {
     "World History": ["Significant Inventions", "Ancient Civilizations", "Medieval History", "Modern History", "World Wars", "General"],
     "Marketing / Business Strategy": ["Brand Management", "Consumer Behavior", "Digital Marketing", "Market Research", "Strategic Planning", "General"],
-    "Computer Science": ["Algorithms", "Data Structures", "Machine Learning and AI", "Software Development", "General"],
+    "Computer Science": ["Algorithms", "Data Structures", "Machine Learning", "Software Development", "General"],
     "Movies": ["Action Movies", "Comedy Movies", "Drama Movies", "Fantasy Movies", "Horror Movies", "General"],
     "Geography": ["Mountains", "Rivers", "Cities", "Deserts", "Oceans", "General"]
 }
