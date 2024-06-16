@@ -16,9 +16,7 @@ if "GROQ_API_KEY" not in st.secrets:
 
 # Initialize the LLMOperator
 models = {
-    "llama2-70b-4096": {"name": "LLaMA2-70b-chat", "tokens": 4096, "developer": "Meta"},
     "llama3-70b-8192": {"name": "LLaMA3-70b-8192", "tokens": 8192, "developer": "Meta"},
-    "llama3-8b-8192": {"name": "LLaMA3-8b-8192", "tokens": 8192, "developer": "Meta"},
     "mixtral-8x7b-32768": {"name": "Mixtral-8x7b-Instruct-v0.1", "tokens": 32768, "developer": "Mistral"},
 }
 
@@ -71,8 +69,11 @@ if st.button("🎉 Generate Quiz!"):
                 st.error("Failed to generate questions. Please try again.")
         except Exception as e:
             st.error(f"An error occurred: {e}")
+st.markdown("---")
 
 if st.session_state["questions"]:
+    st.markdown("## Generated Questions")
+
     questions = st.session_state["questions"]["questions_list"]
     selected_answers = []
     for i, question in enumerate(questions):

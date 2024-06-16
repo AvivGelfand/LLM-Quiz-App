@@ -66,10 +66,11 @@ class GroqLLMOperator:
         The system prompt is passed as a parameter to the LLM model.
         The generated JSON format includes the quiz questions and their corresponding answers.
         """
+        model= random.choice(list(self.models.keys())) # selecting a random model
+        print(model)
+
         response = self.client.chat.completions.create(
-            # selecting a random model from the models dictionary
-            model= random.choice(list(self.models.keys())),
-            # creating messages
+            model= model,
             messages=[
                 {
                     "role": "system",
@@ -77,7 +78,7 @@ class GroqLLMOperator:
                 },
                 {
                     "role": "user",
-                    "content": f"Topic: {topic},\nNumber of questions: {num_questions},\nDifficulty: {difficulty}.\n\nGenerate {num_questions} quiz questions from the topic \"{topic}\" at a {difficulty} difficulty level. Answer with a valid JSON format."
+                    "content": f"Topic: {topic},\nNumber of questions: {num_questions},\nDifficulty: {difficulty}.\n\nGenerate {num_questions} random quiz questions from the topic \"{topic}\" at a {difficulty} difficulty level. Answer with a valid JSON format."
                 }
             ],
             temperature=1, 
@@ -85,3 +86,5 @@ class GroqLLMOperator:
             response_format={"type": "json_object"},
         )
         return json.loads(response.choices[0].message.content)
+    
+
