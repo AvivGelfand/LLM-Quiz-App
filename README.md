@@ -6,7 +6,7 @@ LLM-Quiz-App is a web application that generates quiz questions using large lang
 
 - Generate quiz questions dynamically using LLMs.
 - Supports various topics and difficulty levels.
-- User-friendly interface with Streamlit.
+- User-friendly interface with [Streamlit](https://streamlit.io/).
 - Easily extensible for additional features and customization.
 
 ## Installation
