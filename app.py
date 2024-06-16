@@ -30,15 +30,33 @@ if "attempts" not in st.session_state:
 # Main UI
 st.title("LLM-Powered Quiz Generator")
 
-# Select quiz topic
-topic = st.text_input("Change to your preferred quiz topic", placeholder="General Knowledge")
+# General topics and their corresponding sub-topics
+topics = {
+    "World History": ["Ancient Civilizations", "Medieval History", "Modern History", "World Wars", "Significant Inventions", "General"],
+    "Marketing / Business Strategy": ["Brand Management", "Consumer Behavior", "Digital Marketing", "Market Research", "Strategic Planning", "General"],
+    "Computer Science": ["Algorithms", "Data Structures", "Machine Learning and AI", "Software Development", "General"],
+    "Movies": ["Action Movies", "Comedy Movies", "Drama Movies", "Fantasy Movies", "Horror Movies", "General"],
+    "Geography": ["Mountains", "Rivers", "Cities", "Deserts", "Oceans", "General"]
+}
+
+# Select quiz general topic
+general_topic = st.selectbox("Select a quiz topic", list(topics.keys()))
+
+# Select quiz sub-topic based on general topic
+sub_topic = st.selectbox("Select a quiz sub-topic", topics[general_topic])
+
+
+# Determine the topic or sub-topic to display based on selection
+if sub_topic == "General":
+    topic = general_topic
+else:
+    topic = sub_topic
 
 # Select difficulty level
 difficulty = st.selectbox("Select difficulty level", ["Easy", "Medium", "Hard"])
 
 # Number of questions input
 num_questions = st.selectbox("Number of quiz questions", options=range(1, 11), index=4)
-
 
 
 # # optional bonus feature: adding a progress bar
@@ -53,6 +71,7 @@ if "answered" not in st.session_state:
     st.session_state["answered"] = 0
 
 if st.button("🎉 Generate Quiz!"):
+    # Display the selected topic and sub-topic
     with st.spinner("Generating quiz questions..."):
         try:
             questions = llm_operator.generate_questions_JSON(topic, difficulty, num_questions)

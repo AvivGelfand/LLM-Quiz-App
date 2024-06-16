@@ -10,7 +10,7 @@ Your task will be to provide a response formatted as a valid JSON with a list of
 Verify the correctness of your answers. It is crucial for the questions to be accurate, fact-checked. It is also essential to keep the questions diverse and not repeat similar ones. Also, the questions need to be engaging and fun!
 
 It is most crucial that the JSON structure will contain an array of questions named "questions_list", where each element is an object representing a trivia question with fields:
-"topic,", "difficulty", "question," "options" (an array of possible answers), "answer" (the correct answer), and "answer explanation". If you don't know a lot about the topic, you can return ask questions with "None of the Above" as the answer.
+"general_topic","sub_topic", "difficulty", "question," "options" (an array of possible answers), "answer" (the correct answer), and "answer explanation". If you don't know a lot about the topic, you can return ask questions with "None of the Above" as the answer.
 
 Here are examples of user input and matching responses:
 
