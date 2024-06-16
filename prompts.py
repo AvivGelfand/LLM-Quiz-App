@@ -182,11 +182,11 @@ def make_user_prompt(topic: str, difficulty: str, num_questions: int) -> str:
     str: A formatted string representing the user prompt with specific guidelines based on difficulty.
     """
     if difficulty == "Easy":
-        instructions = "Ask straightforward questions requiring common knowledge or basic facts. "
+        instructions = "Ask simple questions requiring only common knowledge of basic facts. "
     elif difficulty == "Medium":
-        instructions = "Include questions that require a good general knowledge or interest in the topic. "
+        instructions = "Include questions that require a good general knowledge or familiarity in the topic. "
     elif difficulty == "Hard":
-        instructions = "Focus on niche, detailed information that typically only experts or enthusiasts would know. "
+        instructions = "Focus on expert or academic level, detailed information that typically only professionals or enthusiasts would know. "
 
     return (f"Topic: {topic},\nNumber of questions: {num_questions},\nDifficulty: {difficulty}.\n\n"
             f"Generate {num_questions} {difficulty.lower()} difficulty quiz questions on the topic \"{topic}\". "
