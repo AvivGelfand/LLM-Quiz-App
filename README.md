@@ -3,11 +3,11 @@
 ![ezgif-2-9b593fe36d](https://github.com/AvivGelfand/LLM-Quiz-App/assets/63909805/c12508a5-a7c1-4f99-a384-a03aa44e1cc3)
 
 
-LLM Quiz Wizard is a web application that generates quiz questions using large language models (LLMs). This app leverages advanced natural language processing capabilities to create engaging and challenging quizzes on various topics.
+LLM Quiz Wizard is a web application that generates quiz questions using a large language model (LLM). This app leverages advanced natural language processing capabilities to create engaging and challenging quizzes on various topics.
 
 ## Features
 
-- Generate quiz questions dynamically using the LLMs: [Mixtral 8x7b](https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1) and [LLaMA3](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) 70b.
+- Generate quiz questions dynamically using the LLM[LLaMA3](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) 70b.
 - The language models are called in a lightning-fast LPU engine of [Groq](https://groq.com/).
 - Supports various topics and difficulty levels.
 - User-friendly interface with [Streamlit](https://streamlit.io/).
