@@ -1,5 +1,6 @@
 # LLM Quiz Wizard - LLM-Powered Quiz Generator
-[Click here to try the deployed app](https://llm-quiz-wizard.streamlit.app/)
+[CLICK HERE TO TRY IT ONLINE](https://llm-quiz-wizard.streamlit.app/)
+![ezgif-2-9b593fe36d](https://github.com/AvivGelfand/LLM-Quiz-App/assets/63909805/c12508a5-a7c1-4f99-a384-a03aa44e1cc3)
 
 
 LLM-Quiz-App is a web application that generates quiz questions using large language models (LLMs). This app leverages advanced natural language processing capabilities to create engaging and challenging quizzes on various topics.
