@@ -49,7 +49,5 @@ streamlit run app.py
 - `README.md`: Project documentation.
 - `.gitignore`: Specifies files that are to be ignored in version control.
 
-## Acknowledgments
 
-Special thanks to the developers of the language models and the open-source community for their continuous support and contributions.
 
