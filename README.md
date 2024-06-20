@@ -7,7 +7,7 @@ LLM Quiz Wizard is a web application that generates quiz questions using a large
 
 ## Features
 
-- Generate quiz questions dynamically using the LLM[LLaMA3](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) 70b.
+- Generate quiz questions dynamically using the LLM [LLaMA3](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) 70b.
 - The language models are called in a lightning-fast LPU engine of [Groq](https://groq.com/).
 - Supports various topics and difficulty levels.
 - User-friendly interface with [Streamlit](https://streamlit.io/).
